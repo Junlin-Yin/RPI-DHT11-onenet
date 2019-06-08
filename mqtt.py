@@ -7,19 +7,10 @@ import time
 import datetime
 import json
 
-# CONNECT 方式：
-# client_id: DEV_ID
-# username:  PRO_ID
-# password:  APIKEY
-# 可以连接上设备云，CONNECT 和 CONNACK握手成功
-# temp:已创建的一个数据流
-#更多请查阅OneNet官方mqtt文档与paho-mqtt开发文档
-
 #修改成自己的即可
 DEV_ID = "529020612" #设备ID
 PRO_ID = "248625" #产品ID
 AUTH_INFO = "rD2gsXmuxf7EJr=BCX1aKifFPSg="  #APIKEY
-
 
 TYPE_JSON = 0x01
 TYPE_FLOAT = 0x17
@@ -33,11 +24,6 @@ def build_payload(type, payload):
         length = len(udata)
         packet.extend(struct.pack("!H" + str(length) + "s", length, udata))
     return packet
-
-def on_publish(client, userdata, mid):
-    global flag
-    print(userdata, mid, ":done")
-    flag += 1
  
 def publish_data(client, IsTemp=True):
     #上传数据
